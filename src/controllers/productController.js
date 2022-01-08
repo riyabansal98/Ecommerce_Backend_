@@ -19,5 +19,28 @@ module.exports = {
             responseData.products = result;
             return res.status(httpCodes.success).send(responseData);
         });
-    }
+    },
+
+    addProduct: function(req, res) {
+        var data = req.body;
+        var responseData = {
+            success: false,
+            msg: "InValid params for adding products"
+        }; 
+        if(data.name && data.price && data.description && data.categoryId 
+            && data.vendorId) {
+                Product.addProduct(data, function(err){
+                    if(err){
+                        responseData.msg = "Error in adding product";
+                        return res.status(httpCodes.internalServerError).send(responseData);
+                    }
+
+                    responseData.success = true;
+                    responseData.msg = "Successfully added product";
+                    return res.status(httpCodes.success).send(responseData);
+                }); 
+        }else{
+            return res.status(httpCodes.badRequest).send(responseData);       
+        }
+    }   
 };

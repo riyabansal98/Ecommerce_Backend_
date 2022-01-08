@@ -1,4 +1,4 @@
-const sqlConnection = require("..services/sqlConnection");
+const sqlConnection = require("../services/sqlConnection");
 
 module.exports = {
     listCategories: function(callback) {

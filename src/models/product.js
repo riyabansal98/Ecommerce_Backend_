@@ -41,5 +41,21 @@ module.exports = {
         sqlConnection.executeQuery(sql, values, function(error, result){
             callback(error, result);
         });
+    },
+
+    addProduct: function(data, callback) {
+        var sql = "INSERT INTO Products (Name, Price, Description, "
+            + "CategoryID, VendorID, CreatedAt, UpdatedAt) "
+        + "VALUES (?, ?, ?, ?, ?, ?, now(), now())";
+        //now() takes the current timestamp
+        var values = [];
+        values.push(data.name);
+        values.push(data.price);
+        values.push(data.description);
+        values.push(data.categoryId);
+        values.push(data.vendorId);
+        sqlConnection.executeQuery(sql, values, function(err, result){
+            callback(err,result);
+        });
     }
 };
